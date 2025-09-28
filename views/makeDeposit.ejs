@@ -1,0 +1,436 @@
+<div id="preloader" class="loader">
+    <div class='sk-three-bounce'>
+        <div class='sk-bounce-1 sk-child'></div>
+        <div class='sk-bounce-2 sk-child'></div>
+        <div class='sk-bounce-3 sk-child'></div>
+    </div>
+</div>
+<div id="pjax-container">
+    <div id="block-content" class="page--cabinet">
+        <header class="header-bull header--cabinet">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="topline header__topline">
+                            <div class="topline__logo">
+                                <a href="/" class="logo" data-pjax>
+                                    <img src="/assets/img/logo-img.svg" alt="Golden" style="width: 180px;">
+                                </a>
+                            </div>
+                            <div class="topline__controls">
+                                <div class="dropdown topline__dropdown">
+                                    <a href="#" class="dropdown-toggle userdropdown topline__userdropdown"
+                                        id="userDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <%= req.user.username%>
+                                            <span class="caret userdropdown__caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <li> <a href="/dashboard" data-pjax>
+                                                Dashboard
+                                            </a>
+                                        </li>
+                                        <li> <a href="/contact" data-pjax>
+                                                Support
+                                            </a>
+                                        </li>
+                                        <li> <a href="/logout">
+                                                Log out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div> <span class="burger header__burger" id="js-menu-burger">
+                                    <i class="fa fa-bars"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <nav class="menu header__menu" id="js-menu"> <a href="/dashboard" class="menu__link"
+                                id="js-sidebar-cabinet" data-pjax>
+                                Dashboard
+                            </a>
+                            <a href="/deposit" class="menu__link" id="js-sidebar-invest" data-pjax>
+                                Add Deposit
+                            </a>
+                            <a href="/withdraw" class="menu__link" id="js-sidebar-withdraw" data-pjax>
+                                Withdraw
+                            </a>
+                            <a href="/deposits" class="menu__link" id="js-sidebar-deposits" data-pjax>
+                                Deposits
+                            </a>
+                            <a href="/history" class="menu__link" id="js-sidebar-history" data-pjax>
+                                History
+                            </a>
+                            <a href="/settings" class="menu__link" id="js-sidebar-settings" data-pjax>
+                                Settings
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <link rel="stylesheet" href="/assets/css/plans.css">
+        <section class="content bagblack">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="card" style="margin-top: 30px">
+                            <div class="body block-header">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-8 col-sm-12">
+                                        <h2>Welcome, <%= req.user.username%>
+                                        </h2>
+                                        <ul class="breadcrumb p-l-0 p-b-0 ">
+                                            <li class="breadcrumb-item"><a href="/"><i class="fa fa-home"></i></a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="/dashabord">Dashboard</a>
+                                            </li>
+                                            <li class="breadcrumb-item active">Make an Investment</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6 col-md-4 col-sm-12 text-right">
+                                        <a href="/deposit">
+                                            <button
+                                                class="btn btn-primary btn-round btn-simple float-right hidden-xs m-l-10 btn-warning waves-effect">Make
+                                                an investment</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <form method="POST" name="spendform">
+                    <div class="row clearfix">
+                        <div class="col-xl-8 col-lg-8 col-md-8 ">
+                            <div class="card" style="min-height: 428px;">
+                                <div class="headeraccount">
+                                    <h2>Complete <strong>Deposit </strong></h2>
+                                </div>
+                                <div class="body">
+
+                                    <div class="row" id="planselectz">
+                                        <p>To Fund Your account, You are to Pay <%= req.user.currency%>
+                                                <%=typeof amount !='undefined' ? amount : 200.00%> worth of crypto to any of the following generated wallets</p>
+
+
+                                        <!-- Bitcoin -->
+                                        <div class="wallet-card mb-4 p-4 bg-black rounded shadow-sm">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold">Bitcoin (BTC)</h4>
+                                            </div>
+                                            
+                                            <div class="wallet-address-container mb-3 p-3 bg-black rounded">
+                                                <div class="d-flex flex-column">
+                                                    <p class="wallet-address  text-break mb-2"><%= site.bitcoinAddress %></p>
+                                                    <button type="button" class="btn btn-primary copy-btn w-100" data-address="<%= site.bitcoinAddress %>">
+                                                        <i class="fa fa-copy me-1"></i> Copy Address`
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-muted small mb-3">Scan the QR code below or copy the address above</p>
+                                            
+                                            <div class="qr-code-container text-center p-3 bg-black border rounded w-100">
+                                                <img 
+                                                    src="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=<%= site.bitcoinAddress %>"
+                                                    alt="Bitcoin QR Code"
+                                                    class="img-fluid"
+                                                    style="max-width: 100%; height: auto;"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <!-- Ethereum -->
+                                        <div class="wallet-card mb-4 p-4 bg-black rounded shadow-sm">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold">Ethereum (ETH)</h4>
+                                            </div>
+                                            
+                                            <div class="wallet-address-container mb-3 p-3 bg-black rounded">
+                                                <div class="d-flex flex-column">
+                                                    <p class="wallet-address  text-break mb-2"><%= site.ethereumAddress %></p>
+                                                    <button type="button" class="btn btn-primary copy-btn w-100" data-address="<%= site.ethereumAddress %>">
+                                                        <i class="fa fa-copy me-1"></i> Copy Address
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-muted small mb-3">Scan the QR code below or copy the address above</p>
+                                            
+                                            <div class="qr-code-container text-center p-3 bg-black border rounded w-100">
+                                                <img 
+                                                    src="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=<%= site.ethereumAddress %>"
+                                                    alt="Ethereum QR Code"
+                                                    class="img-fluid"
+                                                    style="max-width: 100%; height: auto;"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <!-- USDT -->
+                                        <div class="wallet-card mb-4 p-4 bg-black rounded shadow-sm">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold">Tether (USDT)</h4>
+                                            </div>
+                                            
+                                            <div class="wallet-address-container mb-3 p-3 bg-black rounded">
+                                                <div class="d-flex flex-column">
+                                                    <p class="wallet-address  text-break mb-2"><%= site.usdtAddress %></p>
+                                                    <button type="button" class="btn btn-primary copy-btn w-100" data-address="<%= site.usdtAddress %>">
+                                                        <i class="fa fa-copy me-1"></i> Copy Address
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-muted small mb-3">Scan the QR code below or copy the address above</p>
+                                            
+                                            <div class="qr-code-container text-center p-3 bg-black border rounded w-100">
+                                                <img 
+                                                    src="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=<%= site.usdtAddress %>"
+                                                    alt="USDT QR Code"
+                                                    class="img-fluid"
+                                                    style="max-width: 100%; height: auto;"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <!-- BCH -->
+                                        <div class="wallet-card mb-4 p-4 bg-black rounded shadow-sm">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <h4 class="mb-0 fw-bold">Bitcoin Cash (BCH)</h4>
+                                            </div>
+                                            
+                                            <div class="wallet-address-container mb-3 p-3 bg-black rounded">
+                                                <div class="d-flex flex-column">
+                                                    <p class="wallet-address  text-break mb-2"><%= site.bchAddress %></p>
+                                                    <button type="button" class="btn btn-primary copy-btn w-100" data-address="<%= site.bchAddress %>">
+                                                        <i class="fa fa-copy me-1"></i> Copy Address
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <p class="text-muted small mb-3">Scan the QR code below or copy the address above</p>
+                                            
+                                            <div class="qr-code-container text-center p-3 bg-black border rounded w-100">
+                                                <img 
+                                                    src="https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=<%= site.bchAddress %>"
+                                                    alt="Bitcoin Cash QR Code"
+                                                    class="img-fluid"
+                                                    style="max-width: 100%; height: auto;"
+                                                />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="row" style="margin-top:50px;">
+                            <div class="col-md-12">
+                                <div class="row equal">
+                                    <div class="col-xl-8 col-lg-8 col-md-12 no-padding wow fadeInLeft"
+                                        data-wow-delay="0.2s"
+                                        style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;min-height: 180px;">
+                                        <div class="incrop-left" style="min-height: 100%;">
+                                            <div class="incrop-left-img">
+                                                <img src="/assets/img/uk.png">
+                                                <h4 class="step__title" style="padding-bottom: 15px;color:#facd8a;">UK
+                                                    Registered Company</h4>
+                                                <p>Blockvest Exchange is a fully registered and licensed company in UK.
+                                                    Blockvest Exchange is powered by the latest and most secure form of SSL
+                                                    data encryption to keep all your data and information safe and
+                                                    secure.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="topline footer__topline">
+                                    <a href="/" class="logo topline__logo">
+                                        <img src="/assets/img/logo.png" alt="Golden" style="width: 180px;">
+                                    </a>
+                                    <nav class="menu topline__menu footer__menu"> <a href="/" class="menu__link"
+                                            data-pjax>
+                                            Home
+                                        </a>
+                                        <a href="/about" class="menu__link" data-pjax>
+                                            About us
+                                        </a>
+                                        <a href="/investment" class="menu__link" data-pjax>
+                                            Investment
+                                        </a>
+                                        <a href="/partners" class="menu__link" data-pjax>
+                                            Partners
+                                        </a>
+                                        <a href="/terms" class="menu__link" data-pjax>
+                                            Terms
+                                        </a>
+                                        <a href="/contact" class="menu__link" data-pjax>
+                                            Contact us
+                                        </a>
+                                    </nav>
+                                    <div class="footer__socfooter topline__controls" style="height: initial;">
+                                        <a></a>
+                                        <a></a>
+                                        <a href="https://www.facebook.com" target="_blank">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                        <a href="https://twitter.com" target="_blank">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                        <a href="https://youtube.com" target="_blank">
+                                            <i class="fa fa-youtube"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer__copyright">
+                            2025 Blockvest Exchange. ALL RIGHTS RESERVED.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <link rel="stylesheet" href="/assets/libs/bootstrap/fileinput.min.css">
+    <script src="/assets/libs/bootstrap/bootstrap.min.js"></script>
+    <script src="/assets/libs/bootstrap/fileinput.min.js"></script>
+    <script src="/assets/libs/jquery/jquery-1.9.1.min.js"></script>
+    <script>
+        document.write("<script type='text/javascript' src='/assets/js/data.js?v=" + Date.now() + "'><\/script>");
+
+    </script>
+    <style>
+        /* Wallet Card Styling */
+        .wallet-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .wallet-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        .wallet-address-container {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+        
+        .wallet-address {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
+            flex: 1;
+            min-width: 0;
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 768px) {
+            .wallet-address {
+                font-size: 1rem;
+            }
+        }
+        
+        .qr-code-container {
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .qr-code-container:hover {
+            border-color: #0d6efd;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .wallet-card {
+                padding: 1.25rem;
+            }
+            
+            .wallet-address {
+                font-size: 0.8rem;
+            }
+            
+            .qr-code-container {
+                padding: 0.75rem;
+            }
+            
+            .qr-code-container img {
+                max-width: 150px !important;
+            }
+        }
+        
+        /* Button styling */
+        .copy-btn {
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        /* Animation for copy success */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .copy-success {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+    </style>
+    
+    <script>
+        // Add copy functionality to all copy buttons
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', async function() {
+                const address = this.getAttribute('data-address');
+                try {
+                    await navigator.clipboard.writeText(address);
+                    
+                    // Store original button state
+                    const originalHTML = this.innerHTML;
+                    const originalClass = this.className;
+                    
+                    // Update button to show success state
+                    this.innerHTML = '<i class="fa fa-check"></i> Copied!';
+                    this.className = originalClass.replace('btn-primary', 'btn-success');
+                    this.classList.add('copy-success');
+                    
+                    // Revert button after 2 seconds
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                        this.className = originalClass;
+                        this.classList.remove('copy-success');
+                    }, 2000);
+                    
+                } catch (err) {
+                    console.error('Failed to copy address: ', err);
+                    alert('Failed to copy address to clipboard. Please try again.');
+                }
+            });
+        });
+    </script>
+</div>
